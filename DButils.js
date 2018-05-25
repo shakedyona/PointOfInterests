@@ -12,10 +12,10 @@ var poolConfig = {
 };
 
 var connectionConfig = {
-    userName: 'my-ship-server',
-    password: 'abCD1234',
-    server: 'my-shop-server.database.windows.net',
-    options: { encrypt: true, database: 'SHOP_SERVER' }
+    userName: 'amsterdam',
+    password: 'dY4mftbr',
+    server: 'amsterdambgu.database.windows.net',
+    options: { encrypt: true, database: 'amsterdam_DB' }
 };
 
 //create the pool
