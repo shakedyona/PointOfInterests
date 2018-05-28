@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var DButilsAzure = require('../DButils');
+const jwt = require('jsonwebtoken');
 
 // test route to make sure everything is working (accessed at GET http://localhost:3000/auth) good
 router.get('/', (req, res) => {
@@ -11,48 +12,43 @@ router.get('/', (req, res) => {
 router.post('/getTopRecPointsToUser', (req, res) => {
 
 });
-
+// test route to make sure everything is working (accessed at POST http://localhost:3000/auth/getLastPointToUser)
 router.post('/getLastPointToUser', (req, res) => {
 
-});
+    console.log("good!!");
+    var userName;  
 
-router.get('/getCategories', function (req, res){
-
-    let categories = {}
-    var i;
-
-    DButilsAzure.execQuery(`SELECT * FROM dbo.Categories`)
-    .then((response, err) => {
-        if(err)
-            res.status(400).json({message: err.message});
+    jwt.verify(req.token,'secretkey',(err, authData)=>{
+        if(err){
+            res.sendStatus(403);
+        }
         else{
-            //let jsonObject = JSON.parse(response);
-            for (i=0 ; i<4 ; i++){
-                categories[i] = response[i];
-
-            }
-            console.log("categories: "+categories);
-            res.status(200).json({categories: response});
-            }
-        
-    })
-    .catch(function(err) {
-        res.status(400).json({message: err.message});
+            var strUser = authData;      
+            result = strUser.user["Username"];
+            userName = result;
+           /*res.json({
+                result                 
+            });  */       
+        }
     });
 
+    DButilsAzure.execQuery(`SELECT * FROM dbo.Users_Last_Point WHERE username = '${userName}'`)
+        .then((response, err) => {
+            if(err)
+                res.status(400).json({message: err.message});
+            else{  
+                console.log(response[0].SearchPointName);  
+                res.status(200).json({
+                    PointName: response[0].SearchPointName
+                });
+
+            }
+        })
+        .catch(function(err) {
+            res.status(400).json({message: 'NULL'});
+        });
 });
 
-router.get('/getRandomPopularPoints', (req, res) => {
-
-});
-
-router.post('/getPoint', (req, res) => {
-
-});
-
-router.get('/getAllPoints', (req, res) => {
-
-});
 
 router.post('/insertToFavorits', (req, res) => {
 
@@ -120,4 +116,30 @@ router.post('/getAllUsers', (req, res) => {
     });
 });*/
 
+/*promiss
+var idUser = function(userName){
+    return new Promise(
+        function(resolve,reject){
+
+            resolve(user.Password);
+                
+        }
+            
+        
+    );
+};*/
+
+/*function verifyToken(req, res, next){
+    const beareHeader = req.headers['authorization'];
+    if(typeof beareHeader !== 'undefined'){
+        const bearer = beareHeader.split(' ');
+        //get token from array
+        const bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    }
+    else{
+        res.sendStatus(403);
+    }  
+}*/
 module.exports = router;

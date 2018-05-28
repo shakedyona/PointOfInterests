@@ -17,6 +17,21 @@ app.use(bodyParser.json());
 
 //START
 app.use('/auth', auth);
+//middleware
+app.use('/analy',function(req, res, next){
+    const beareHeader = req.headers['authorization'];
+    if(typeof beareHeader !== 'undefined'){
+        const bearer = beareHeader.split(' ');
+        //get token from array
+        const bearerToken = bearer[1];
+        req.token = bearerToken;
+        next();
+    }
+    else{
+        res.sendStatus(403);
+        next();
+    }  
+});
 app.use('/analy', analy);
 app.use('/else', Aelse);
 //API

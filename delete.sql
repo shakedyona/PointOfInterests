@@ -1,0 +1,4 @@
+DELETE Users_Questions
+DELETE Users_Categories
+DELETE Users_Last_Point
+DELETE Users
