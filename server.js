@@ -1,4 +1,3 @@
-//this is only an example, handling everything is yours responsibilty !
 // call the packages we need
 const express = require('express');
 var bodyParser = require('body-parser');
@@ -32,29 +31,42 @@ app.use('/analy',function(req, res, next){
         next();
     }  
 });
+app.use('/analy/rateForPoint',function(req, res, next){
+    const PointN = req.body.PointName;
+    const Rate = req.body.Rate;
+    req.PointN=PointN;
+    req.Rate=Rate;
+    DButilsAzure.execQuery(`SELECT * FROM dbo.Points WHERE PointName = '${PointN}'`)
+    .then((response, err) => {
+        if(err)
+            res.status(400).json({boolean: 'false'});
+        else{
+            NumberOfRates = response[0].NumOfRate;
+            SumOfRates = response[0].SumOfRate;
+
+            parsRate = parseInt(Rate);
+            parsNum = parseInt(NumberOfRates);
+            parsSum = parseInt(SumOfRates);
+            
+            const newSumRate = parsSum + parsRate;
+            const newNumberOfRate = parsNum +1;
+            const newRate = newSumRate / (newNumberOfRate);
+            //Normalized
+            newRateNormalizedtemp = (newRate-1)/4;
+            const newRateNormalized = newRateNormalizedtemp*100;
+            req.newRateNormalized = newRateNormalized;
+            req.newNumberOfRate =newNumberOfRate;
+            req.newSumRate=newSumRate;
+            next();
+        }
+    })
+    .catch(function(err) {
+        res.status(400).json({message: 'false'});
+        next();
+    });
+});
 app.use('/analy', analy);
 app.use('/else', Aelse);
-//API
-/*
-//move all:
-//delete user
-app.delete('/:id', function (req, res) {
-    console.log("delete user")
-
-    if (users[req.params.id])
-    {
-        delete (users[req.body.id])
-        res.send("User deleted successfully")
-    }   
-    else
-    res.send("No such user exists")
-
-    
-});
-
-///API*/
-
-
 
 var port = 3000;
 // START THE SERVER
