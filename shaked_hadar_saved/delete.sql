@@ -1,7 +1,0 @@
-DELETE Categories
-DELETE Users_Favorits
-DELETE Points_review
-DELETE Points
-DELETE Users_Questions
-DELETE Users_Categories
-DELETE Users

@@ -1,0 +1,38 @@
+
+.poi h2 {
+    color: #d79948;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Comic Sans MS, Helvetica, sans-serif;
+    text-decoration: none;
+    text-align: center;
+}
+
+.poi h1 {
+    color: #9b5448;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: Comic Sans MS, Helvetica, sans-serif;
+    text-decoration: none;
+    text-align: center;
+}
+
+.poi .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin: auto;
+    border: 3px solid #d79948;
+    
+  }
+  
+  .poi a {
+    text-decoration: none;
+    font-size: 20px;
+    color: gray;
+
+  }
+ 
+
+ .poi a:hover {
+    opacity: 0.7;
+  }

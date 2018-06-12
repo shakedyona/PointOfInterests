@@ -1,0 +1,158 @@
+<div class="allPoi">
+<h2>All Point Of Interests</h2>
+
+    
+<div class="info">
+    <p>Sort Type: {{ sortType }}</p>
+    <p>Sort Reverse: {{ sortReverse }}</p>
+    <p>Search Query: {{ searchPoint }}</p>
+</div>
+
+<form>
+    <div class="search">
+        <i class="fa fa-search"></i>
+        <input type="text" class="myInput" placeholder="Search For Point Names.." ng-model="searchPoint">
+    </div>
+</form>
+
+<table style="width:100%">
+    
+    <thead>
+    <tr>
+        <td>
+        <a ng-click="sortType = 'name'; sortReverse = !sortReverse">
+            Point Name 
+            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+        </td>
+
+
+        <td>
+        <a ng-click="sortType = 'category'; sortReverse = !sortReverse">
+        Category
+            <span ng-show="sortType == 'category' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'category' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+        <select ng-model="search.category">
+            <option value="">All</option>
+            <option ng-repeat="point in amsterdam | unique:'category'" value="{{point.category}}">{{point.category}}</option>
+        </select>    
+        </td>
+
+
+        <td>
+        <a ng-click="sortType = 'rate'; sortReverse = !sortReverse">
+        Rating (%) 
+            <span ng-show="sortType == 'rate' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'rate' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+        </td>
+
+        <td>
+        <a>
+            Favorite 
+        </a>
+        </td>
+
+    </tr>
+    </thead>
+    
+    <tbody>
+    <tr ng-repeat="point in amsterdam | filter:search.category | orderBy:sortType:sortReverse">
+        <td>{{ point.name }} <a href="#/login"></a></td>
+        <td>{{ point.category }}</td>
+        <td>{{ point.rate }}</td>
+        <td>{{ point.favorite }} <a href="#/favorite"><i class="fa fa-heart"></i></a></td>
+    </tr>
+    </tbody>
+    
+</table>
+</br>
+
+</div>
+
+
+
+<!--
+    <div class="allPoi">
+<h2>All Point Of Interests</h2>
+
+    
+<div class="info">
+    <p>Sort Type: {{ sortType }}</p>
+    <p>Sort Reverse: {{ sortReverse }}</p>
+    <p>Search Query: {{ searchPoint }}</p>
+</div>
+
+<form>
+    <div class="search">
+        <i class="fa fa-search"></i>
+        <input type="text" class="myInput" placeholder="Search For Point Names.." ng-model="searchPoint">
+    </div>
+</form>
+
+<table style="width:100%" st-safe-src="amsterdam" st-set-filter="myStrictFilter">
+    
+    <thead>
+    <tr>
+        <td>
+        <a ng-click="sortType = 'name'; sortReverse = !sortReverse">
+            Point Name 
+            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+        </td>
+
+
+        <td st-sort="category">
+        <a ng-click="sortType = 'category'; sortReverse = !sortReverse">
+        Category
+            <span ng-show="sortType == 'category' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'category' && sortReverse" class="fa fa-caret-up"></span>
+        </a>    
+        <select st-search="category">
+            <option value="{{point.category}}">All</option>
+            <option ng-repeat="point in amsterdam | unique:'category'" value="{{point.category}}">{{point.category}}</option>
+        </select>
+        </td>
+
+
+        <td>
+        <a ng-click="sortType = 'rate'; sortReverse = !sortReverse">
+        Rating (%) 
+            <span ng-show="sortType == 'rate' && !sortReverse" class="fa fa-caret-down"></span>
+            <span ng-show="sortType == 'rate' && sortReverse" class="fa fa-caret-up"></span>
+        </a>
+        </td>
+
+        <td>
+        <a>
+            Favorite 
+        </a>
+        </td>
+
+    </tr>
+    </thead>
+    
+    <tbody>
+    <tr ng-repeat="point in amsterdam | orderBy:sortType:sortReverse | filter:searchPoint">
+        <td>{{ point.name }} <a href="#/login"></a></td>
+        <td>{{ point.category }}</td>
+        <td>{{ point.rate }}</td>
+        <td>{{ point.favorite }} <a href="#/favorite"><i class="fa fa-heart"></i></a></td>
+    </tr>
+    </tbody>
+    
+</table>
+</br>
+
+</div>
+
+
+
+
+
+-->
+
+

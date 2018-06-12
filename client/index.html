@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="amsterdamApp">
+    <head>
+        <title>Amsterdam_ShakedYona_307866087_HadarHazan_311428585</title>
+    </head>
+    <!--
+
+        header
+        ng view - changes
+        footer
+    -->
+    <body ng-controller="indexController as indxCtrl"></body>
+    <body>   
+        <header ng-include="'views/header.html'"></header>
+        <main ng-view></main>
+        <footer ng-include="'views/footer.html'"></footer> 
+        
+        <!-- angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script> 
+
+        <!-- models -->
+        <script src="app.js" ></script>
+
+        <!-- controller -->
+        <script src="indexController.js" ></script> 
+        <script src="controllers/homeController.js" ></script>
+        <script src="controllers/aboutController.js" ></script> 
+        <script src="controllers/poiController.js" ></script>  
+        <script src="controllers/registerController.js" ></script>        
+        <script src="controllers/loginController.js" ></script>    
+        <script src="controllers/allPoiController.js" ></script>  
+
+        <!-- styles -->
+        <link href="indexStyle.css" rel="stylesheet">
+        <link href="views/styles/footer.css" rel="stylesheet">
+        <link href="views/styles/header.css" rel="stylesheet">
+        <link href="views/styles/home.css" rel="stylesheet">
+        <link href="views/styles/register.css" rel="stylesheet">
+        <link href="views/styles/homeLogin.css" rel="stylesheet">
+        <link href="views/styles/login.css" rel="stylesheet">
+        <link href="views/styles/poi.css" rel="stylesheet">
+        <link href="views/styles/favorite.css" rel="stylesheet">
+        <link href="views/styles/passwordRestore.css" rel="stylesheet">
+        <link href="views/styles/allPoi.css" rel="stylesheet">
+        
+    </body>
+</html>
+
+    
