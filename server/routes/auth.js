@@ -30,95 +30,99 @@ router.post('/register', function (req, res) {
     .then((response, err) => {
         if(err){
             res.status(400).json({
-                message: 'false'
+                message: 'Something went wrong - users Table'
             });
 
         }     
     })
     .catch(function(err) {
-        res.status(400).json({message: 'false'});
+        res.status(400).json({message: 'Something went wrong - users Table'});
     });
 
     DButilsAzure.execQuery(`INSERT INTO dbo.Users_Questions VALUES ('${user.Username}', '${user.Ansewer1}','${user.Ansewer2}')`)
     .then((response, err) => {
         if(err){
             res.status(400).json({
-                message: 'false'
+                message: 'Something went wrong - Users_Questions Table'
             });
 
         }
     })
     .catch(function(err) {
-        res.status(400).json({message: 'false'});
+        res.status(400).json({message: 'Something went wrong - Users_Questions Table'});
     });
-
+    
+    if(user.Category1 !== undefined){
     DButilsAzure.execQuery(`INSERT INTO dbo.Users_Categories VALUES ('${user.Username}', '${user.Category1}')`)
     .then((response, err) => {
         if(err){
             res.status(400).json({
-                message: 'false'
+                message: 'Something went wrong - Users_Categories Table'
             });
         }
     })
     .catch(function(err) {
-        res.status(400).json({message: 'false'});
+        res.status(400).json({message: 'Something went wrong - Users_Categories Table'});
     });
+    }
 
+    if(user.Category2 !== undefined){
     DButilsAzure.execQuery(`INSERT INTO dbo.Users_Categories VALUES ('${user.Username}', '${user.Category2}')`)
     .then((response, err) => {
         if(err){
             res.status(400).json({
-                message: 'false'
+                message: 'Something went wrong - Users_Categories Table'
             });
         }
 
         else{
             res.status(200).json({
-                addUserMessege1: 'true'
+                message: 'true'
             });            
         }
     })
     .catch(function(err) {
-        res.status(400).json({message: 'false'});
+        res.status(400).json({message: 'Something went wrong - Users_Categories Table'});
     });
+    }
 
-    if(user.Category3!== 'undefined'){
+    if(user.Category3 !== undefined){
         DButilsAzure.execQuery(`INSERT INTO dbo.Users_Categories VALUES ('${user.Username}', '${user.Category3}')`)
         .then((response, err) => {
             if(err){
                 res.status(400).json({
-                    message: err.message
+                    message: 'Something went wrong - Users_Categories Table'
                 });
             }
 
             else{
                 res.status(200).json({
-                    addUserMessege2: user
+                    message: 'true'
                 });            
             }
         })
         .catch(function(err) {
-            res.status(400).json({message: err.message});
+            res.status(400).json({message: 'Something went wrong - Users_Categories Table'});
         });
     }
 
-    if(user.Category4!== 'undefined'){
+    if(user.Category4 !== undefined){
         DButilsAzure.execQuery(`INSERT INTO dbo.Users_Categories VALUES ('${user.Username}', '${user.Category4}')`)
         .then((response, err) => {
             if(err){
                 res.status(400).json({
-                    message: err.message
+                    message: 'Something went wrong - Users_Categories Table'
                 });
             }
                 
             else{
                 res.status(200).json({
-                    addUserMessege3: user
+                    message: 'true'
                 });            
             }
         })
         .catch(function(err) {
-            res.status(400).json({message: err.message});
+            res.status(400).json({message: 'Something went wrong - Users_Categories Table'});
         });
     }
 
@@ -132,24 +136,28 @@ router.post('/login', (req, res) => {
     let password = req.param('password');
 
     DButilsAzure.execQuery(`SELECT * FROM dbo.Users WHERE username = '${username}'`)
-    .then((response, err) => {
-        if(err)
-            res.status(400).json({message: err.message});
-        else{
-            let passFromTable = response[0].Password;
-            user = response[0];            
-            if(password == passFromTable){
-                jwt.sign({user},'secretkey',(err,token)=>{
-                    res.json({
-                        token
-                    });
-                });
-            }
+    .then(function (response) {
+        let passFromTable = response[0].Password;
+        user = response[0];            
+        if(password == passFromTable){
+            jwt.sign({user},'secretkey',(err,token)=>{
+               
+                res.status(200).json({
+                    token
+                });  
+            });
         }
-    })
-    .catch(function(err) {
-        res.status(400).json({message: err.message});
+        else{
+            res.status(400).json({
+                message: "ERROR: Incorrect Password"
+            });
+        }         
+
+    }, function (response) {
+        console.log("Something went wrong");
+        alert("The username or password is incorrect !! ");
     });
+
 });
 
 

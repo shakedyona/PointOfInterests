@@ -1,0 +1,48 @@
+.header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #9b5448;
+    font-family: Comic Sans MS, Helvetica, sans-serif;
+}
+
+.header li {
+    float: left;
+}
+
+
+.header li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.header li a:hover {
+    background-color: #d79948;
+}
+
+.header .icon-bar a {
+    float: right;
+    text-align: center;
+    padding: 14px 16px;
+    transition: all 0.3s ease;
+    color: white;
+    text-decoration: none;
+}
+
+.header .icon-bar a:hover {
+    background-color: #d79948;
+}
+
+.header ul span {
+    float: right;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+

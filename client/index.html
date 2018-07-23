@@ -2,6 +2,14 @@
 <html lang="en" ng-app="amsterdamApp">
     <head>
         <title>Amsterdam_ShakedYona_307866087_HadarHazan_311428585</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- load bootstrap -->
+       
+        
+          
+
     </head>
     <!--
 
@@ -9,40 +17,68 @@
         ng view - changes
         footer
     -->
-    <body ng-controller="indexController as indxCtrl"></body>
-    <body>   
-        <header ng-include="'views/header.html'"></header>
+
+    <body ng-controller="indexController as indxCtrl">   
+        <header ng-include="'components/header/header.html'"></header>
         <main ng-view></main>
-        <footer ng-include="'views/footer.html'"></footer> 
+        <footer ng-include="'components/footer/footer.html'"></footer> 
+
+        <!--about (roll)-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
         <!-- angular -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script> 
+        <script src="servics/angular-local-storage.min.js"></script>
+
+
+        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+            integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+            crossorigin=""></script>
+
 
         <!-- models -->
         <script src="app.js" ></script>
 
+        <!-- countries 
+        <script src="js/xml2json.min.js"></script>
+        <script src="js/xml2json.js"></script>
+        
+        -->
+        
         <!-- controller -->
         <script src="indexController.js" ></script> 
-        <script src="controllers/homeController.js" ></script>
-        <script src="controllers/aboutController.js" ></script> 
-        <script src="controllers/poiController.js" ></script>  
-        <script src="controllers/registerController.js" ></script>        
-        <script src="controllers/loginController.js" ></script>    
-        <script src="controllers/allPoiController.js" ></script>  
+        <script src="components/home/homeController.js" ></script>
+        <script src="components/about/aboutController.js" ></script>
+        <script src="components/poi/poiController.js" ></script>
+        <script src="components/register/registerController.js" ></script>
+        <script src="components/login/loginController.js" ></script>
+        <script src="components/allPoi/allPoiController.js" ></script>
+        <script src="components/homeLogin/homeLoginController.js" ></script>
+        <script src="components/favorite/favoriteController.js" ></script>
+        <script src="components/passwordRestore/passwordRestoreController.js" ></script>
+        <link href="components/register/countries.xml">
+        
+        <!-- servics -->
+        <script src="servics/localStorageModel.js" ></script>  
+        <script src="servics/IndexService.js" ></script>  
+        <script src="components/login/loginService.js"></script>  
+        <script src="components/passwordRestore/passwordRestoreService.js"></script>  
+
 
         <!-- styles -->
-        <link href="indexStyle.css" rel="stylesheet">
-        <link href="views/styles/footer.css" rel="stylesheet">
-        <link href="views/styles/header.css" rel="stylesheet">
-        <link href="views/styles/home.css" rel="stylesheet">
-        <link href="views/styles/register.css" rel="stylesheet">
-        <link href="views/styles/homeLogin.css" rel="stylesheet">
-        <link href="views/styles/login.css" rel="stylesheet">
-        <link href="views/styles/poi.css" rel="stylesheet">
-        <link href="views/styles/favorite.css" rel="stylesheet">
-        <link href="views/styles/passwordRestore.css" rel="stylesheet">
-        <link href="views/styles/allPoi.css" rel="stylesheet">
+        <link href="components/footer/footer.css" rel="stylesheet">
+        <link href="components/header/header.css" rel="stylesheet">
+        <link href="components/home/home.css" rel="stylesheet">
+        <link href="components/register/register.css" rel="stylesheet">
+        <link href="components/homeLogin/homeLogin.css" rel="stylesheet">
+        <link href="components/login/login.css" rel="stylesheet">
+        <link href="components/poi/poi.css" rel="stylesheet">
+        <link href="components/favorite/favorite.css" rel="stylesheet">
+        <link href="components/passwordRestore/passwordRestore.css" rel="stylesheet">
+        <link href="components/allPoi/allPoi.css" rel="stylesheet">
+        <link href="components/about/about.css" rel="stylesheet">
         
     </body>
 </html>

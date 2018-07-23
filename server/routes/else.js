@@ -26,7 +26,7 @@ router.post('/getRandomPopularPoints', (req, res) => {
 
     threshold = req.body.threshold;
 
-    DButilsAzure.execQuery(`SELECT dbo.Points.PointName FROM dbo.Points WHERE Rate >= '${threshold}'`)
+    DButilsAzure.execQuery(`SELECT dbo.Points.PointName, dbo.Points.Image FROM dbo.Points WHERE Rate >= '${threshold}'`)
     .then((response, err) => {
         if(err)
             res.status(400).json({message: err.message});
@@ -47,14 +47,13 @@ router.post('/getRandomPopularPoints', (req, res) => {
                     }
                     
                 }
-
+                    
                 for(var p in NumOfpoints)
                 {
                     ans[p] = response[NumOfpoints[p]];
                 }
 
                 res.status(200).json({randomPopular: ans});
-
             }
             else{
                 res.status(200).json({randomPopular: response});
@@ -142,9 +141,9 @@ router.get('/getAllPoints', (req, res) => {
         if(err)
             res.status(400).json({message: err.message});
         else{
-            var answer = [];
+            var answer="";
             for (i in response){
-                answer[i] = response[i].PointName + ", Category Name: "+response[i].CategoryName +", Rate: "+response[i].Rate ;  
+                answer =answer+ response[i].PointName +","+ response[i].CategoryName +","+ response[i].Rate + ";" ;  
             }
             res.status(200).json({Points: answer});
             }

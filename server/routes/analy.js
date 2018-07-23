@@ -20,16 +20,18 @@ router.post('/getTopRecPointsToUser', (req, res) => {
         }
     });
 
-    DButilsAzure.execQuery(`SELECT TOP 2 dbo.Points.PointName, dbo.Points.Rate FROM dbo.Users_Categories INNER JOIN dbo.Points ON dbo.Users_Categories.Category = dbo.Points.CategoryName  WHERE Username = '${userName}' ORDER BY Rate DESC`)
+    DButilsAzure.execQuery(`SELECT TOP 2 * FROM dbo.Users_Categories INNER JOIN dbo.Points ON dbo.Users_Categories.Category = dbo.Points.CategoryName  WHERE Username = '${userName}' ORDER BY Rate DESC`)
     .then((response, err) => {
         if(err)
             res.status(400).json({message: err.message});
         else{
-            var ans='';
-            var strresponse1 = response[0].PointName;
-            var strresponse2 = response[1].PointName;         
+            pNameA =  response[0].PointName;
+            ImageA = response[0].Image;
+            pNameB =  response[1].PointName;                
+            ImageB = response[1].Image;
+
             res.status(200).json(
-                {first: strresponse1, second: strresponse2}
+                {firstName: pNameA, firstImage: ImageA, secondName: pNameB, secondImage: ImageB}
             );
         }
     })
@@ -55,16 +57,19 @@ router.post('/getLastFavoritsPointsToUser', (req, res) => {
         }
     });
 
-    DButilsAzure.execQuery(`SELECT TOP 2 * FROM dbo.Users_Favorits WHERE Username = '${userName}' ORDER BY FavoritID DESC`)
+
+    DButilsAzure.execQuery(`SELECT TOP 2 * FROM dbo.Users_Favorits INNER JOIN dbo.Points ON dbo.Users_Favorits.PointName = dbo.Points.PointName  WHERE Username = '${userName}'  ORDER BY FavoritID DESC`)
         .then((response, err) => {
             if(err)
                 res.status(400).json({message: err.message});
             else{
-                var ans='';
-                var strresponse1 = response[0].PointName;
-                var strresponse2 = response[1].PointName;         
+                pNameA =  response[0].PointName;
+                ImageA = response[0].Image;
+                pNameB =  response[1].PointName;                
+                ImageB = response[1].Image;
+         
                 res.status(200).json(
-                    {first: strresponse1, second: strresponse2}
+                    {firstName: pNameA, firstImage: ImageA, secondName: pNameB, secondImage: ImageB}
                 );
 
             }
@@ -128,7 +133,7 @@ router.delete('/deleteFromFavorits', (req, res) => {
     DButilsAzure.execQuery(`SELECT * FROM dbo.Users_Favorits WHERE Username = '${userName}' AND PointName = '${PointN}'`)
     .then((response, err) => {
         if(err)
-            res.status(400).json({boolean: 'false'});
+            res.status(400).json({message: 'false - check if have point'});
         else{
             if(response.length>0){
                 bool = true;
@@ -142,7 +147,7 @@ router.delete('/deleteFromFavorits', (req, res) => {
     DButilsAzure.execQuery(`DELETE FROM dbo.Users_Favorits WHERE Username = '${userName}' AND PointName = '${PointN}'`)
     .then((response, err) => {
         if(err)
-            res.status(400).json({boolean: 'false'});
+            res.status(400).json({message: 'false - in delete the point'});
     })
     .catch(function(err) {
         res.status(400).json({message: 'false'});
@@ -151,7 +156,7 @@ router.delete('/deleteFromFavorits', (req, res) => {
     DButilsAzure.execQuery(`SELECT * FROM dbo.Users_Favorits WHERE Username = '${userName}' AND PointName = '${PointN}'`)
     .then((response, err) => {
         if(err)
-            res.status(400).json({boolean: 'false'});
+            res.status(400).json({message: 'false - in check if deleted'});
         else{
             if(response.length===0 && bool===true){
                 res.status(200).json({message: 'true'});
@@ -187,9 +192,10 @@ router.post('/getFavoritePoints', (req, res) => {
         .then((response, err) => {
             if(err)
                 res.status(400).json({message: err.message});
-            else{  
+            else{
+                var answer="";  
                 for (i in response){
-                    answer[i]= response[i].PointName;
+                    answer =answer+ response[i].PointName +","+ response[i].FavoritID +","+ response[i].OrderID + ";" ; 
                 }
                 res.status(200).json({Points: answer});
 

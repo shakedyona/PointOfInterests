@@ -1,4 +1,4 @@
-let app = angular.module('amsterdamApp', ["ngRoute"]);
+let app = angular.module('amsterdamApp', ["ngRoute", 'LocalStorageModule']);
 
 
 //before app run
@@ -10,76 +10,81 @@ app.config(['$locationProvider', '$routeProvider', function($locationProvider, $
 
     $routeProvider
     .when('/', {
-        templateUrl: 'views/home.html',
-        controller : 'homeController as homeCtrl'
+        templateUrl: 'components/home/home.html',
+        controller : 'homeController as homeCtrl',
+        resolve: {
+            randomPoints: function (IndexService){
+                return IndexService.getRandomPopularPoints();
+            }
+        }
     })
     .when('/about', {
-        templateUrl: 'views/about.html',
+        templateUrl: 'components/about/about.html',
         controller : 'aboutController as abtCtrl'
     })
     .when('/poi', {
-        templateUrl: 'views/poi.html',
+        templateUrl: 'components/poi/poi.html',
         controller : 'poiController as poiCtrl'
     })
     .when('/register', {
-        templateUrl: 'views/register.html',
-        controller : 'registerController as registerCtrl'
+        templateUrl: 'components/register/register.html',
+        controller : 'registerController as registerCtrl',
+        resolve: {
+            all_cat: function (IndexService){
+                return IndexService.getCategories();
+            }
+        }
     })
     .when('/login', {
-        templateUrl: 'views/login.html',
+        templateUrl: 'components/login/login.html',
         controller : 'loginController as loginCtrl'
     })
     .when('/favorite', {
-        templateUrl: 'views/favorite.html',
-        controller : 'favoriteController as favoriteCtrl'
+        templateUrl: 'components/favorite/favorite.html',
+        controller : 'favoriteController as favoriteCtrl',
+        
+        resolve: {
+            all_fav: function (loginService){
+                return loginService.getMyFavorites();
+            }
+        }
     })
     .when('/homeLogin', {
-        templateUrl: 'views/homeLogin.html',
-        controller : 'homeLoginController as homeLoginCtrl'
+        templateUrl: 'components/homeLogin/homeLogin.html',
+        controller : 'homeLoginController as homeLoginCtrl',
+        resolve: {
+            recPoints: function (loginService){
+                return loginService.getTopRecPointsToUser();
+            },
+            favPoints: function (loginService){
+                return loginService.getLastFavoritsPointsToUser();
+            },
+             function (loginService){
+                loginService.getMyFavorites();
+            }
+        }
     })
     .when('/passwordRestore', {
-        templateUrl: 'views/passwordRestore.html',
+        templateUrl: 'components/passwordRestore/passwordRestore.html',
         controller : 'passwordRestoreController as passwordRestoreCtrl'
     })
     .when('/allPoi', {
-        templateUrl: 'views/allPoi.html',
-        controller : 'allPoiController as allPoiCtrl'
+        templateUrl: 'components/allPoi/allPoi.html',
+        controller : 'allPoiController as allPoiCtrl',
+        resolve: {
+            all_poi: function (IndexService){
+                return IndexService.getAllPoints();
+            }
+        }
     })
 
+    
+   
 
     .otherwise({ redirectTo: '/' });
 
         
 }]);
-
-
-/*let app = angular.module('amsterdamApp', ["ngRoute", 'LocalStorageModule']);
-
-
-//before app run
-app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider)  {
-
-
-    $locationProvider.hashPrefix('');
-
-
-    $routeProvider.when('/', {
-        template: '<h1>This is the default route</h1>'
-    })
-        .when('/about', {
-            templateUrl: 'views/about.html',
-            controller : 'aboutController as abtCtrl'
-        })
-        .when('/poi', {
-            templateUrl: 'views/poi.html',
-            controller : 'poiController as poiCtrl'
-        })
-        .otherwise({ redirectTo: '/' });
-
-        
-}]);
-
-*/
 
 
 
