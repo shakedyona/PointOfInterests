@@ -46,10 +46,10 @@ router.post('/register', function (req, res) {
                 message: 'Something went wrong - Users_Questions Table'
             });
 
-        }
+        }     
     })
     .catch(function(err) {
-        res.status(400).json({message: 'Something went wrong - Users_Questions Table'});
+        res.status(400).json({message: 'Something went wrong - users Table'});
     });
     
     if(user.Category1 !== undefined){

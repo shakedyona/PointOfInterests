@@ -26,7 +26,7 @@ angular.module('amsterdamApp')
             return false
 
         }, function (response) {
-            console.log("Something went wrong");
+            console.log("Something went wrong" + response.data.message);
             return false;
         });
 

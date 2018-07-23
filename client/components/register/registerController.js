@@ -58,7 +58,7 @@ angular.module('amsterdamApp')
 			$scope.register();
 		}
 		else{
-			alert("Something went wrong");
+			alert("Something went wrong - $scope.submitForm");
 		}
 
 	};
@@ -73,11 +73,11 @@ angular.module('amsterdamApp')
 					$location.path('/');
 				}
 				else{
-						alert("Something went wrong")
+						alert("Something went wrong - $scope.register")
 				}
 
 		}, function (response) {
-				self.getPoint.content = "Something went wrong";
+				self.getPoint.content = "Something went wrong - $scope.register !";
 		}); 
 	};
 	
